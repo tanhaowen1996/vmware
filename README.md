@@ -32,3 +32,26 @@ VC_DC=dc
 ```bash
 docker-compose up -d
 ```
+
+## Build a tar file 
+
+* To make `build.tar.gz`
+
+```bash
+make 
+```
+
+* Install
+
+```bash
+tar -xvf build.tar.gz
+
+cd build
+./install.sh         # load images
+vim cmpvmware.conf   # edit config file
+ls .env              # make sure `.env` exists
+
+# run
+docker-compose up -d
+```
+
