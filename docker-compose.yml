@@ -6,6 +6,7 @@ volumes:
 services:
   db:
     image: mysql  # https://hub.docker.com/_/mysql
+    container_name: cmp_vmware_db
     restart: always
     volumes:
       - app-db-data:/var/lib/mysql
@@ -19,6 +20,7 @@ services:
   api:
     build: ./
     image: cmp-vmware:v1.0
+    container_name: cmp_vmware_api
     restart: always
     ports:
       - "8000:8000"
@@ -34,6 +36,7 @@ services:
 
   scheduler:
     image: cmp-vmware:v1.0
+    container_name: cmp_vmware_scheduler
     restart: always
     command: scheduler
     environment:
