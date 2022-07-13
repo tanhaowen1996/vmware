@@ -1,5 +1,6 @@
+UNAME := $(shell uname -s)
 
-all: rm build setconf setimagejs pkg rm
+all: build setconf setimagejs pkg clean
 
 build:
 	docker-compose build
@@ -19,5 +20,9 @@ setimagejs:
 pkg:
 	tar -cvf build.tar.gz build
 
-rm:
+clean:
+ifeq ($(UNAME),Darwin)
 	rm -dRf build
+else
+	rm -f build
+endif
