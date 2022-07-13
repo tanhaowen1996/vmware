@@ -1,0 +1,51 @@
+version: "3"
+
+volumes:
+  app-db-data:
+
+services:
+  db:
+    image: mysql  # https://hub.docker.com/_/mysql
+    restart: always
+    volumes:
+      - app-db-data:/var/lib/mysql
+    environment:
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DATABASE}
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  api:
+    build: ./
+    image: cmp-vmware:v1.0
+    restart: always
+    ports:
+      - "8000:8000"
+    command: api
+    environment:
+      - DATABASE=${DATABASE}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=db  # ${DB_HOST}
+      - DB_PORT=${DB_PORT}
+    depends_on:
+      - db
+
+  scheduler:
+    image: cmp-vmware:v1.0
+    restart: always
+    command: scheduler
+    environment:
+      - DATABASE=${DATABASE}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=db # ${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - VC_HOST=${VC_HOST}
+      - VC_USER=${VC_USER}
+      - VC_PASSWORD=${VC_PASSWORD}
+      - VC_DC=${VC_DC}
+    depends_on:
+      - db
+

@@ -1,0 +1,14 @@
+pyvmomi
+fastapi
+uvicorn[standard]
+sqlalchemy
+sqlalchemy-utils
+sqlalchemy-dlock
+apscheduler
+alembic
+dependency-injector
+pytz
+mysql-connector-python
+pymysql
+
+pytest
