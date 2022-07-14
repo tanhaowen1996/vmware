@@ -31,7 +31,7 @@ test.db
 /.nb-gradle/
 
 
-app/__pycache__/
+*/__pycache__/*
 
 .venv/
 local_doc
